@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
   <meta charset="UTF-8">
   <title>Hijri Date Widget</title>
@@ -17,14 +17,14 @@
 
     .widget {
       text-align: center;
-      padding: 20px 40px;
-      border-radius: 16px;
-      background: #000;
+      padding: 20px;
+      width: 100%;
     }
 
     .hijri {
-      font-size: 24px;
+      font-size: clamp(14px, 4vw, 28px); /* taille adaptative */
       font-weight: bold;
+      white-space: nowrap; /* empêche le retour à la ligne */
     }
   </style>
 </head>
@@ -37,11 +37,11 @@
 <script>
   const today = new Date();
 
-  fetch(`https://api.aladhan.com/v1/gToH?date=${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}`)
+  fetch(`https://api.aladhan.com/v1/gToH?date=${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}&method=4`)
     .then(response => response.json())
     .then(data => {
       const hijri = data.data.hijri;
-      const hijriDate = `${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
+      const hijriDate = `${hijri.day} ${hijri.month.en} ${hijri.year} AH`; // tu peux remplacer "en" par "ar" si tu veux en arabe
       document.getElementById("hijriDate").innerText = hijriDate;
     })
     .catch(() => {
