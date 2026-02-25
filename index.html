@@ -17,14 +17,16 @@
 
     .widget {
       text-align: center;
-      padding: 20px;
-      width: 100%;
+      width: 90%;       /* utilise presque toute la largeur disponible */
+      max-width: 1000px; /* limite pour écrans très larges */
     }
 
     .hijri {
-      font-size: clamp(14px, 4vw, 28px); /* taille adaptative */
+      font-size: 10vw;     /* taille très grande relative à la largeur */
       font-weight: bold;
-      white-space: nowrap; /* empêche le retour à la ligne */
+      white-space: nowrap;  /* reste sur une ligne */
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   </style>
 </head>
@@ -41,7 +43,7 @@
     .then(response => response.json())
     .then(data => {
       const hijri = data.data.hijri;
-      const hijriDate = `${hijri.day} ${hijri.month.en} ${hijri.year} AH`; // tu peux remplacer "en" par "ar" si tu veux en arabe
+      const hijriDate = `${hijri.day} ${hijri.month.en} ${hijri.year} AH`; 
       document.getElementById("hijriDate").innerText = hijriDate;
     })
     .catch(() => {
