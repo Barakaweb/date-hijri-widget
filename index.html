@@ -47,7 +47,7 @@
     .then(response => response.json())
     .then(data => {
       const hijri = data.data.hijri;
-      const hijriDate = `ff${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
+      const hijriDate = `${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
       document.getElementById("hijriDate").innerText = hijriDate;
     })
     .catch(() => {
