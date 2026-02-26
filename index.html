@@ -1,49 +1,53 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Hijri Date Widget</title>
+
+  <!-- IMPORTANT pour Notion -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     html, body {
       margin: 0;
-      background: #000;
-      color: white;
+      padding: 0;
+      background: transparent; /* Important pour Notion */
       font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
     }
 
     .widget {
+      width: 100%;
+      box-sizing: border-box;
       text-align: center;
-      width: 90%;       /* utilise presque toute la largeur disponible */
-      max-width: 1000px; /* limite pour écrans très larges */
+      padding: 16px;
+      border-radius: 16px;
+      background: #000;
+      color: white;
     }
 
     .hijri {
-      font-size: 5vw;     /* taille très grande relative à la largeur */
+      font-size: clamp(16px, 4vw, 24px);
       font-weight: bold;
-      white-space: nowrap;  /* reste sur une ligne */
-      overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: 1.4;
+      word-wrap: break-word;
     }
   </style>
 </head>
+
 <body>
 
 <div class="widget">
-  <div class="hijri" id="hijriDate"></div>
+  <div class="hijri" id="hijriDate">Loading...</div>
 </div>
 
 <script>
   const today = new Date();
 
-  fetch(`https://api.aladhan.com/v1/gToH?date=${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}&method=4`)
+  fetch(`https://api.aladhan.com/v1/gToH?date=${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}`)
     .then(response => response.json())
     .then(data => {
       const hijri = data.data.hijri;
-      const hijriDate = `${hijri.day} ${hijri.month.en} ${hijri.year}`; 
+      const hijriDate = `${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
       document.getElementById("hijriDate").innerText = hijriDate;
     })
     .catch(() => {
